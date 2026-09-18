@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website của tôi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trang web tích hợp Google Apps Script</h1>
+        <p>Phần hiển thị bên dưới là ứng dụng từ Google Apps Script của bạn:</p>
+        
+        <!-- Đường dẫn Web App của bạn đã được gắn vào đây -->
+        <iframe src="https://script.google.com/macros/s/AKfycbzPrR8X2uXK51botLzKe4Ad1Gy5SMGHAX1RXNw_g8T02wgZ0XRGbSOppxX7QtxHAJ64RA/exec"></iframe>
+    </div>
+</body>
+</html>
