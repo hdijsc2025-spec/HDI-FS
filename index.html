@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDI Financial System</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Xóa bỏ khoảng trắng mặc định của trình duyệt */
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             background-color: #f4f4f9;
         }
-        /* Thiết lập để iframe phủ kín toàn màn hình mượt mà */
+        /* Mở rộng iframe phủ kín 100% màn hình */
         iframe {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             border: none;
             display: block;
         }
     </style>
 </head>
 <body>
-    <!-- Ứng dụng Google Apps Script hiển thị trực tiếp toàn trang -->
     <iframe src="https://script.google.com/macros/s/AKfycbzPrR8X2uXK51botLzKe4Ad1Gy5SMGHAX1RXNw_g8T02wgZ0XRGbSOppxX7QtxHAJ64RA/exec"></iframe>
 </body>
 </html>
