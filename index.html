@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDI Financial System — Just Do It</title>
     <style>
-        /* Reset khoảng trắng mặc định và thiết lập khung tràn màn hình */
         html, body {
             margin: 0;
             padding: 0;
@@ -18,7 +17,6 @@
             flex-direction: column;
         }
 
-        /* Thanh tiêu đề hệ thống tràn toàn bộ chiều rộng */
         .header-banner {
             width: 100%;
             background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
@@ -34,7 +32,6 @@
             z-index: 10;
         }
 
-        /* Khung iframe tự động lấp đầy 100% diện tích còn lại */
         .iframe-container {
             flex: 1;
             width: 100%;
@@ -51,15 +48,39 @@
 </head>
 <body>
 
-    <!-- Tiêu đề hệ thống -->
     <div class="header-banner">
         HDI Financial System — Just Do It
     </div>
 
-    <!-- Khung ứng dụng Web App -->
-    <div class="iframe-container">
-        <iframe src="https://script.google.com/macros/s/AKfycbzPrR8X2uXK51botLzKe4Ad1Gy5SMGHAX1RXNw_g8T02wgZ0XRGbSOppxX7QtxHAJ64RA/exec"></iframe>
+    <div class="iframe-container" id="app-wrapper">
+        <!-- Iframe sẽ được khởi tạo động tại đây -->
     </div>
 
+    <script>
+        // Chuỗi URL Google Apps Script đã mã hóa Base64
+        const _0x1a2b = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3Vy1SeF9LZlVzd0RKOGFMN2NoY0dOa0p6bGVERXk5S1ZwcFNIbTBPUTZodlRrWFVQYVNMM01Bb3FxZEdjZTBuXy9leGVj";
+
+        // Tạo và nhúng iframe sau khi trang tải xong
+        window.addEventListener('DOMContentLoaded', () => {
+            const frame = document.createElement('iframe');
+            frame.src = atob(_0x1a2b); // 解码 Base64 -> URL gốc
+            document.getElementById('app-wrapper').appendChild(frame);
+        });
+
+        // 1. Chặn menu chuột phải
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // 2. Chặn các phím tắt mở DevTools & View Source
+        document.addEventListener('keydown', e => {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+                (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
+            ) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    </script>
 </body>
 </html>
