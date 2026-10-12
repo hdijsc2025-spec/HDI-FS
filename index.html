@@ -2,41 +2,52 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <!-- Cho phép zoom 2 ngón tay, tối ưu viền màn hình -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <!-- Cho phép zoom 2 ngón tay; viewport-fit=cover dùng toàn màn hình (tai thỏ); interactive-widget: bàn phím ảo co khung (Chrome Android) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover, interactive-widget=resizes-content">
+    <meta name="theme-color" content="#203a43">
+    <!-- Thêm vào Màn hình chính (iPhone/Android) -> mở toàn màn hình như ứng dụng -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HDI Financial">
     <title>HDI Financial System — Just Do It</title>
     <style>
         :root {
-            --sat: env(safe-area-inset-top);
-            --sab: env(safe-area-inset-bottom);
+            --sat: env(safe-area-inset-top, 0px);
+            --sab: env(safe-area-inset-bottom, 0px);
+            --sal: env(safe-area-inset-left, 0px);
+            --sar: env(safe-area-inset-right, 0px);
         }
+
+        * { box-sizing: border-box; }
 
         /* Nền trang ngoài */
         html, body {
             margin: 0;
             padding: 0;
-            width: 100vw;
-            height: 100vh;
-            height: -webkit-fill-available;
-            background-color: #1e293b; /* Màu nền tối bên ngoài viền 95% */
+            width: 100%;
+            height: 100vh;          /* dự phòng cho trình duyệt cũ */
+            height: 100dvh;         /* chiều cao THẬT đang nhìn thấy (trừ thanh địa chỉ trình duyệt điện thoại) */
+            background-color: #1e293b;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            overscroll-behavior: none;       /* không kéo-giật cả trang khi cuộn tới đầu/cuối */
+            -webkit-text-size-adjust: 100%;  /* không tự phóng chữ khi xoay ngang */
         }
 
-        /* Khung chứa tổng (Chỉ chiếm đúng 95% chiều cao & 95% chiều rộng màn hình) */
+        /* Khung chứa tổng - máy tính: 95% màn hình */
         .app-card {
             width: 95vw;
             height: 95vh;
+            height: 95dvh;
             background-color: #ffffff;
-            border-radius: 12px; /* Bo góc nhẹ cho đẹp */
+            border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-sizing: border-box;
         }
 
         /* Thanh tiêu đề hệ thống */
@@ -50,19 +61,19 @@
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            box-sizing: border-box;
             flex-shrink: 0;
         }
 
-        /* Khung chứa iframe chiếm phần diện tích còn lại trong 95% */
+        /* Khung chứa iframe chiếm phần còn lại */
         .iframe-container {
             flex: 1;
+            min-height: 0;          /* bắt buộc để khung co lại được trong flex, iframe không đẩy tràn */
             width: 100%;
-            height: 100%;
             position: relative;
             -webkit-overflow-scrolling: touch;
             overflow: auto;
-            touch-action: auto; 
+            touch-action: auto;
+            background: #f4f6f9;
         }
 
         iframe {
@@ -72,17 +83,53 @@
             display: block;
         }
 
-        @media (max-width: 480px) {
-            .header-banner {
-                font-size: 13px;
-                padding: 10px 5px;
+        /* Màn hình chờ tải */
+        .loading-box {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px;
+            background: #f4f6f9; color: #475E75; font-size: 14px; text-align: center; padding: 20px;
+            z-index: 2;
+        }
+        .loading-box.hide { display: none; }
+        .spinner {
+            width: 38px; height: 38px; border-radius: 50%;
+            border: 4px solid #d5dde6; border-top-color: #203a43;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-box a { color: #0070F2; font-weight: 700; text-decoration: none; }
+        #slowHint { display: none; font-size: 13px; }
+
+        /* ===== ĐIỆN THOẠI: tràn toàn màn hình, không viền, tiêu đề mỏng, tránh tai thỏ ===== */
+        @media (max-width: 768px) {
+            html, body { background-color: #ffffff; align-items: stretch; }
+            .app-card {
+                width: 100%;
+                height: 100vh;
+                height: 100dvh;
+                border-radius: 0;
+                box-shadow: none;
+                padding-left: var(--sal);
+                padding-right: var(--sar);
+                background: #ffffff;
             }
+            .header-banner {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                padding: calc(var(--sat) + 6px) 8px 6px;
+            }
+            .iframe-container { padding-bottom: var(--sab); }
+        }
+
+        /* Điện thoại xoay ngang (màn hình thấp): ẩn tiêu đề để dành chỗ cho ứng dụng */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header-banner { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Khung bao 95% màn hình -->
+    <!-- Khung bao -->
     <div class="app-card">
         <!-- Tiêu đề hệ thống -->
         <div class="header-banner">
@@ -91,6 +138,12 @@
 
         <!-- Khung chứa ứng dụng Web App -->
         <div class="iframe-container" id="app-wrapper">
+            <div class="loading-box" id="loadingBox">
+                <div class="spinner"></div>
+                <div>Đang tải hệ thống...</div>
+                <div id="slowHint">Tải lâu hơn bình thường. Bạn có thể
+                    <a id="openNewTab" href="#" target="_blank" rel="noopener">mở trong tab mới</a>.</div>
+            </div>
             <!-- Iframe được khởi tạo bằng JS -->
         </div>
     </div>
@@ -99,13 +152,21 @@
         const _0x1a2b = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3Vy1SeF9LZlVzd0RKOGFMN2NoY0dOa0p6bGVIRTl5S1ZwcFNIbTRPUTZodlRrNlhVUGFTbDNNQW80cWRHY2Uwbl8vZXhlYw==";
 
         window.addEventListener('DOMContentLoaded', () => {
+            const url = atob(_0x1a2b);
             const frame = document.createElement('iframe');
-            frame.src = atob(_0x1a2b);
-            
-            // Cho phép hiển thị thanh cuộn và nhận thao tác Zoom
+            frame.src = url;
+            frame.title = 'HDI Financial System';
             frame.setAttribute('scrolling', 'yes');
+            frame.setAttribute('allow', 'clipboard-read; clipboard-write; fullscreen');
+            frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
             frame.style.touchAction = 'auto';
-            
+
+            const box = document.getElementById('loadingBox');
+            document.getElementById('openNewTab').href = url;
+            // Quá 12 giây chưa tải xong -> gợi ý mở tab mới (không tự đóng màn hình chờ)
+            const slow = setTimeout(() => { document.getElementById('slowHint').style.display = 'block'; }, 12000);
+            frame.addEventListener('load', () => { clearTimeout(slow); box.classList.add('hide'); });
+
             document.getElementById('app-wrapper').appendChild(frame);
         });
 
@@ -115,7 +176,7 @@
         // Chặn phím tắt F12 & DevTools
         document.addEventListener('keydown', e => {
             if (
-                e.key === 'F12' || 
+                e.key === 'F12' ||
                 (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
                 (e.ctrlKey && ['U', 'u', 'S', 's'].includes(e.key))
             ) {
