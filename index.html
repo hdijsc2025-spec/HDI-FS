@@ -120,10 +120,8 @@
             .iframe-container { padding-bottom: var(--sab); }
         }
 
-        /* Điện thoại xoay ngang (màn hình thấp): ẩn tiêu đề để dành chỗ cho ứng dụng */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .header-banner { display: none; }
-        }
+        /* (Đã bỏ quy tắc tự ẩn tiêu đề khi màn hình thấp: bàn phím ảo thu chiều cao làm tiêu đề
+           lúc ẩn lúc hiện khi gõ ở màn hình đăng nhập. Tiêu đề chỉ ẩn khi đã đăng nhập.) */
 
         /* Chừa thanh tiêu đề + đáy an toàn khi tiêu đề đang hiện */
         .app-card:not(.logged-in) .iframe-container { padding-bottom: var(--sab); }
