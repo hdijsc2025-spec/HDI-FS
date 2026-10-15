@@ -165,7 +165,7 @@
             document.getElementById('openNewTab').href = url;
             // Quá 12 giây chưa tải xong -> gợi ý mở tab mới (không tự đóng màn hình chờ)
             const slow = setTimeout(() => { document.getElementById('slowHint').style.display = 'block'; }, 12000);
-            frame.addEventListener('load', () => { clearTimeout(slow); box.classList.add('hide'); });
+            frame.addEventListener('load', () => { clearTimeout(slow); box.classList.add('hide'); document.getElementById('appCard').classList.remove('logged-in'); });
 
             document.getElementById('app-wrapper').appendChild(frame);
         });
