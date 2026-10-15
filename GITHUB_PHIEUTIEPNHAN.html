@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- Cho phép zoom 2 ngón tay; viewport-fit=cover dùng toàn màn hình (tai thỏ); interactive-widget: bàn phím ảo co khung (Chrome Android) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover, interactive-widget=resizes-content">
+    <meta name="theme-color" content="#584A00">
+    <!-- Thêm vào Màn hình chính (iPhone/Android) -> mở toàn màn hình như ứng dụng -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HDI ENTERPRISE SYSTEM">
+    <title>HDI ENTERPRISE SYSTEM</title>
+    <style>
+        :root {
+            --sat: env(safe-area-inset-top, 0px);
+            --sab: env(safe-area-inset-bottom, 0px);
+            --sal: env(safe-area-inset-left, 0px);
+            --sar: env(safe-area-inset-right, 0px);
+        }
+
+        * { box-sizing: border-box; }
+
+        /* Nền trang ngoài */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;          /* dự phòng cho trình duyệt cũ */
+            height: 100dvh;         /* chiều cao THẬT đang nhìn thấy (trừ thanh địa chỉ trình duyệt điện thoại) */
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            overscroll-behavior: none;       /* không kéo-giật cả trang khi cuộn tới đầu/cuối */
+            -webkit-text-size-adjust: 100%;  /* không tự phóng chữ khi xoay ngang */
+        }
+
+        /* Khung chứa tổng - TOÀN MÀN HÌNH (máy tính và điện thoại) */
+        .app-card {
+            width: 100vw;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            background-color: #ffffff;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Thanh tiêu đề (biểu mẫu công khai, không đăng nhập nên luôn hiện) */
+        .header-banner {
+            width: 100%;
+            background: #584A00;            /* màu chủ đạo của hệ thống */
+            border-bottom: 3px solid #E2B922;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 10px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+        /* Đã đăng nhập: ẩn tiêu đề, ứng dụng chiếm trọn màn hình */
+        .app-card.logged-in { padding-top: var(--sat); }
+
+        /* Khung chứa iframe chiếm phần còn lại */
+        .iframe-container {
+            flex: 1;
+            min-height: 0;          /* bắt buộc để khung co lại được trong flex, iframe không đẩy tràn */
+            width: 100%;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+            overflow: auto;
+            touch-action: auto;
+            background: #ECEFF3;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Màn hình chờ tải */
+        .loading-box {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px;
+            background: #ECEFF3; color: #584A00; font-size: 14px; text-align: center; padding: 20px;
+            z-index: 2;
+        }
+        .loading-box.hide { display: none; }
+        .spinner {
+            width: 38px; height: 38px; border-radius: 50%;
+            border: 4px solid #e6dfb8; border-top-color: #584A00;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-box a { color: #88700B; font-weight: 700; text-decoration: none; }
+        #slowHint { display: none; font-size: 13px; }
+
+        /* ===== ĐIỆN THOẠI: tràn toàn màn hình, không viền, tiêu đề mỏng, tránh tai thỏ ===== */
+        @media (max-width: 768px) {
+            html, body { background-color: #ffffff; align-items: stretch; }
+            .app-card {
+                padding-left: var(--sal);
+                padding-right: var(--sar);
+            }
+            .header-banner {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                padding: calc(var(--sat) + 6px) 8px 6px;
+            }
+            .iframe-container { padding-bottom: var(--sab); }
+        }
+
+        /* (Đã bỏ quy tắc tự ẩn tiêu đề khi màn hình thấp: bàn phím ảo thu chiều cao làm tiêu đề
+           lúc ẩn lúc hiện khi gõ ở màn hình đăng nhập. Tiêu đề chỉ ẩn khi đã đăng nhập.) */
+
+        /* Chừa thanh tiêu đề + đáy an toàn khi tiêu đề đang hiện */
+        .app-card:not(.logged-in) .iframe-container { padding-bottom: var(--sab); }
+    </style>
+</head>
+<body>
+
+    <!-- Khung bao -->
+    <div class="app-card" id="appCard">
+        <!-- Tiêu đề hệ thống (ẩn sau khi đăng nhập) -->
+        <div class="header-banner" id="headerBanner">
+            HDI ENTERPRISE SYSTEM
+        </div>
+
+        <!-- Khung chứa ứng dụng Web App -->
+        <div class="iframe-container" id="app-wrapper">
+            <div class="loading-box" id="loadingBox">
+                <div class="spinner"></div>
+                <div>Đang tải biểu mẫu...</div>
+                <div id="slowHint">Tải lâu hơn bình thường. Bạn có thể
+                    <a id="openNewTab" href="#" target="_blank" rel="noopener">mở trong tab mới</a>.</div>
+            </div>
+            <!-- Iframe được khởi tạo bằng JS -->
+        </div>
+    </div>
+
+    <script>
+        const _0x1a2b = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3TENHZzZOWXFtc3hldUtWT0p2cmpQa0I3UG1kbzRlUEZlOXYwWFdTT3prVE5EOUxmYURfOTc1SGtXUDBQV19hb3kvZXhlYw==";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const url = atob(_0x1a2b);
+            const frame = document.createElement('iframe');
+            frame.src = url;
+            frame.title = 'HDI ENTERPRISE SYSTEM';
+            frame.setAttribute('scrolling', 'yes');
+            frame.setAttribute('allow', 'clipboard-read; clipboard-write; fullscreen');
+            frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+            frame.style.touchAction = 'auto';
+
+            const box = document.getElementById('loadingBox');
+            document.getElementById('openNewTab').href = url;
+            // Quá 12 giây chưa tải xong -> gợi ý mở tab mới (không tự đóng màn hình chờ)
+            const slow = setTimeout(() => { document.getElementById('slowHint').style.display = 'block'; }, 12000);
+            frame.addEventListener('load', () => { clearTimeout(slow); box.classList.add('hide'); });
+
+            document.getElementById('app-wrapper').appendChild(frame);
+        });
+
+        // Chặn menu chuột phải
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Chặn phím tắt F12 & DevTools
+        document.addEventListener('keydown', e => {
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+                (e.ctrlKey && ['U', 'u', 'S', 's'].includes(e.key))
+            ) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    </script>
+</body>
+</html>
