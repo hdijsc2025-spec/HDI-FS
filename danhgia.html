@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>HDI ENTERPRISE SYSTEM - Khảo sát chất lượng dịch vụ</title>
+<style>
+  :root { --c-tab: #584A00; --c-accent: #E2B922; --c-bg: #F0EFEE; --c-text: #000000; --c-danger: #dc3545; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { display: flex; flex-direction: column; background: var(--c-bg); color: var(--c-text); font-family: Arial, Helvetica, sans-serif; }
+  header { flex: 0 0 auto; background: var(--c-tab); color: #fff; display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 3px solid var(--c-accent); }
+  .logo { background: var(--c-accent); color: var(--c-tab); font-weight: 800; letter-spacing: 1.5px; border-radius: 8px; padding: 6px 12px; font-size: 16px; }
+  .ten { font-weight: 700; letter-spacing: .5px; font-size: 16px; }
+  .phu { margin-left: auto; font-size: 12px; opacity: .85; white-space: nowrap; }
+  main { flex: 1 1 auto; position: relative; min-height: 0; }
+  iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
+  #thongbao { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+  #thongbao div { max-width: 520px; background: #fff; border: 1px solid #B5B0AB; border-radius: 10px; padding: 22px; line-height: 1.5; }
+  #thongbao b { color: var(--c-danger); }
+  #dang { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #8A827A; font-size: 14px; pointer-events: none; }
+  @media (max-width: 600px) { .phu { display: none; } .ten { font-size: 14px; } }
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">HDI</span>
+  <span class="ten">HDI ENTERPRISE SYSTEM</span>
+  <span class="phu">Khảo sát chất lượng dịch vụ</span>
+</header>
+<main>
+  <div id="dang">Đang tải bài khảo sát...</div>
+  <iframe id="khung" title="Khảo sát chất lượng dịch vụ" style="visibility:hidden" allow="clipboard-write"></iframe>
+  <div id="thongbao"><div id="noidung"></div></div>
+</main>
+<noscript><p style="padding:16px">Trang cần bật JavaScript để hiển thị.</p></noscript>
+<script>
+(function () {
+  // Trang bao chỉ nhúng trang khảo sát của Apps Script. Chữ ký (sig) do máy chủ kiểm tra, trang này không quyết định gì về bảo mật.
+  var q = new URLSearchParams(location.search);
+  var ma = (q.get('ma') || '').trim(), exp = (q.get('exp') || '').trim(), sig = (q.get('sig') || '').trim(), s = (q.get('s') || '').trim();
+  function baoLoi(html) {
+    document.getElementById('dang').style.display = 'none';
+    document.getElementById('khung').style.display = 'none';
+    document.getElementById('noidung').innerHTML = html;
+    document.getElementById('thongbao').style.display = 'flex';
+  }
+  // chỉ chấp nhận đúng định dạng: mã yêu cầu, hạn yyyyMMdd, chữ ký 64 ký tự hex, đường dẫn web app script.google.com/.../s/<ID>/exec
+  var okId = /^YC-\d{6}-\d{3,}$/.test(ma) && /^\d{8}$/.test(exp), okSig = /^[0-9a-f]{64}$/.test(sig),
+      okS = /^(a\/macros\/[A-Za-z0-9.\-]+\/|a\/[A-Za-z0-9.\-]+\/macros\/|macros\/)s\/[A-Za-z0-9_\-]{10,}\/exec$/.test(s);
+  if (!okId || !okSig || !okS) {
+    baoLoi('<b>Liên kết không hợp lệ.</b><br>Vui lòng mở đúng liên kết trong email thông báo hoàn thành yêu cầu. Nếu vẫn lỗi, vui lòng liên hệ bên gửi.');
+    return;
+  }
+  var url = 'https://script.google.com/' + s + '?act=danhgia&ma=' + encodeURIComponent(ma) + '&exp=' + encodeURIComponent(exp) + '&sig=' + encodeURIComponent(sig);
+  var khung = document.getElementById('khung');
+  khung.addEventListener('load', function () { khung.style.visibility = 'visible'; document.getElementById('dang').style.display = 'none'; });
+  khung.src = url;
+  // nếu quá lâu chưa hiện (mạng chặn script.google.com...), gợi ý mở trực tiếp
+  setTimeout(function () {
+    if (khung.style.visibility === 'hidden') {
+      document.getElementById('dang').innerHTML = 'Trang tải chậm. Bạn có thể <a href="' + url.replace(/"/g, '&quot;') + '" style="pointer-events:auto;color:#584A00;font-weight:bold;">mở trực tiếp trang xác nhận</a>.';
+    }
+  }, 12000);
+})();
+</script>
+</body>
+</html>
