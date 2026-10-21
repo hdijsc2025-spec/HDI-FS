@@ -8,7 +8,6 @@
     :root { --brand:#584A00; --soft:#F4F0DC; --line:#D9CF9A; --accent:#E2B922; --bg:#ECEFF3; --ok:#188918; --err:#B00020; --warn:#B25A00; }
     * { box-sizing:border-box; }
     body { margin:0; background:var(--bg); font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; color:#2b2f33; }
-    .wrap { max-width:480px; margin:24px auto 90px; background:#fff; border-radius:14px; border-top:5px solid var(--brand); box-shadow:0 4px 20px rgba(0,0,0,.08); padding:22px 20px 26px; }
     h1 { margin:0 0 4px; font-size:20px; color:var(--brand); text-align:center; letter-spacing:.5px; }
     h2 { margin:6px 0 10px; font-size:17px; color:var(--brand); }
     .sub { text-align:center; color:#6c757d; font-size:14px; margin-bottom:18px; }
@@ -19,7 +18,6 @@
     .btn { display:block; width:100%; border:0; border-radius:12px; padding:14px; font-size:16px; font-weight:700; color:#fff; background:var(--brand); cursor:pointer; margin-top:16px; }
     .btn:disabled { opacity:.6; cursor:default; }
     .btn.ghost { background:#fff; color:var(--brand); border:1px solid var(--brand); font-weight:600; font-size:15px; padding:11px; margin-top:12px; }
-    .msg { margin-top:12px; text-align:center; font-weight:600; min-height:20px; }
     .who { background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
     .who b { font-size:18px; display:block; } .who span { color:#6c757d; font-size:14px; }
     .clock { text-align:center; font-size:46px; font-weight:800; color:var(--brand); letter-spacing:1px; margin:16px 0 0; font-variant-numeric:tabular-nums; }
@@ -48,13 +46,30 @@
     .card { border:1px solid #e3e6e8; border-radius:10px; padding:10px 12px; margin-top:10px; font-size:14px; } .card .t { color:#6c757d; font-size:12px; }
     .row2 { display:flex; gap:8px; } .row2 .btn { margin-top:16px; padding:11px; font-size:15px; }
     .ph { color:#6c757d; text-align:center; padding:20px 0; }
-    @media (max-width:520px) { body { background:#fff; } .wrap { margin:0 0 80px; border-radius:0; box-shadow:none; min-height:100vh; } }
+    body { background:#F3F1EA; }
+    .auth { min-height:100vh; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:20px; background:linear-gradient(160deg,#584A00 0%,#7a6710 55%,#B89A2A 100%); }
+    .acard { width:100%; max-width:400px; background:#fff; border-radius:20px; padding:26px 22px 24px; box-shadow:0 12px 40px rgba(0,0,0,.25); }
+    .logo { width:64px; height:64px; margin:0 auto 10px; border-radius:18px; background:var(--soft); display:flex; align-items:center; justify-content:center; border:1px solid var(--line); }
+    .scr { max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:92px; background:#F3F1EA; }
+    .hero { background:linear-gradient(160deg,#584A00,#7a6710); color:#fff; padding:26px 20px 72px; display:flex; justify-content:space-between; align-items:center; gap:12px; border-radius:0 0 26px 26px; }
+    .hero .hi { font-size:14px; opacity:.85; } .hero .nm { font-size:22px; font-weight:800; line-height:1.25; } .hero .dv { font-size:13px; opacity:.85; margin-top:2px; }
+    .avt { width:52px; height:52px; border-radius:50%; background:var(--accent); color:var(--brand); font-weight:800; font-size:22px; display:flex; align-items:center; justify-content:center; flex:none; border:3px solid rgba(255,255,255,.55); }
+    .mods { margin:-50px 14px 0; background:#fff; border-radius:18px; padding:18px 8px 12px; box-shadow:0 6px 22px rgba(0,0,0,.1); }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px 4px; }
+    .mod { border:0; background:none; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:#2b2f33; padding:6px 2px; cursor:pointer; font-family:inherit; line-height:1.25; }
+    .ic { width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 12px rgba(0,0,0,.14); }
+    .ic svg { width:28px; height:28px; stroke:#fff; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .bar { position:sticky; top:0; z-index:4; background:linear-gradient(160deg,#584A00,#7a6710); color:#fff; display:flex; align-items:center; gap:8px; padding:14px 12px; font-weight:700; font-size:18px; }
+    .back { border:0; background:none; color:#fff; font-size:26px; line-height:1; cursor:pointer; padding:2px 8px; }
+    .pane { background:#fff; margin:14px; border-radius:16px; padding:16px 16px 20px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+    .msg { position:fixed; left:50%; transform:translateX(-50%); top:14px; width:max-content; max-width:92%; background:#fff; border-radius:12px; padding:10px 16px; box-shadow:0 6px 24px rgba(0,0,0,.25); font-weight:600; text-align:center; z-index:30; }
+    .msg:empty { display:none; }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <!-- ===== ĐĂNG NHẬP ===== -->
-  <div id="vLogin">
+<!-- ===== ĐĂNG NHẬP (giữa trang) ===== -->
+<div id="vLogin" class="auth"><div class="acard">
+<div class="logo"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#584A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.8-6 7-6s6.2 2 7 6"/></svg></div>
     <h1>CỔNG NHÂN VIÊN</h1>
     <div class="sub">Đăng nhập bằng mã nhân viên và mật khẩu do bộ phận nhân sự cấp.</div>
     <label for="maNV">Mã nhân viên</label>
@@ -63,10 +78,10 @@
     <input id="pin" type="password" autocomplete="current-password" maxlength="32" onkeydown="if(event.key==='Enter')dangNhap()">
     <button class="btn" id="btnLogin" onclick="dangNhap()">ĐĂNG NHẬP</button>
     <div class="hint">Quên mật khẩu hoặc bị khóa? Liên hệ bộ phận nhân sự để được cấp lại.</div>
-  </div>
+</div></div>
 
-  <!-- ===== ĐỔI MẬT KHẨU ===== -->
-  <div id="vMK" style="display:none">
+<!-- ===== ĐỔI MẬT KHẨU ===== -->
+<div id="vMK" class="auth" style="display:none"><div class="acard">
     <h1 id="mkTieuDe">ĐỔI MẬT KHẨU</h1>
     <div class="sub" id="mkGhiChu">Đây là lần đăng nhập đầu tiên. Vui lòng đặt mật khẩu riêng (8 đến 32 ký tự).</div>
     <label>Mật khẩu hiện tại</label><input id="mkCu" type="password" autocomplete="current-password" maxlength="32">
@@ -74,14 +89,25 @@
     <label>Nhập lại mật khẩu mới</label><input id="mkMoi2" type="password" autocomplete="new-password" maxlength="32" onkeydown="if(event.key==='Enter')doiMK()">
     <button class="btn" id="btnMK" onclick="doiMK()">LƯU MẬT KHẨU</button>
     <button class="btn ghost" id="btnMKHuy" style="display:none">Hủy</button>
-  </div>
+</div></div>
 
-  <!-- ===== SAU ĐĂNG NHẬP ===== -->
-  <div id="vMain" style="display:none">
-    <div class="top"><span class="who" style="padding:6px 10px"><b id="tenNV" style="font-size:15px"></b><span id="dvNV" style="font-size:12px"></span></span>
-      <span style="text-align:right"><button class="link" onclick="moDoiMK()">Đổi mật khẩu</button><br><button class="link" onclick="dangXuat()">Đăng xuất</button></span></div>
+<!-- ===== TRANG CHỦ NHÂN VIÊN ===== -->
+<div id="vHome" class="scr" style="display:none">
+  <div class="hero"><div><div class="hi">Xin chào,</div><div class="nm" id="hNm"></div><div class="dv" id="hDv"></div></div><div class="avt" id="hAv"></div></div>
+  <div class="mods"><div class="grid">
+      <button class="mod" onclick="vaoTab('cc')"><span class="ic" style="background:linear-gradient(135deg,#14b8a6,#0f766e)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Chấm công</button>
+      <button class="mod" onclick="vaoTab('ls')"><span class="ic" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span>Lịch sử chấm công</button>
+      <button class="mod" onclick="vaoTab('luong')"><span class="ic" style="background:linear-gradient(135deg,#a78bfa,#6d28d9)"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>Phiếu lương</button>
+      <button class="mod" onclick="vaoTab('hoso')"><span class="ic" style="background:linear-gradient(135deg,#fb7185,#e11d48)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.5 1.8-2.2 3-2.2s2.4.7 3 2.2M14 10h4M14 13h3"/></svg></span>Hồ sơ</button>
+      <button class="mod" onclick="vaoTab('yc')"><span class="ic" style="background:linear-gradient(135deg,#f472b6,#db2777)"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg></span>Gửi yêu cầu</button>
+      <button class="mod" onclick="vaoTab('ycds')"><span class="ic" style="background:linear-gradient(135deg,#6366f1,#3730a3)"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span>Yêu cầu của tôi</button>
+  </div></div>
+</div>
 
-    <div id="tCc">
+<!-- ===== MÀN HÌNH CHI TIẾT NHÂN VIÊN ===== -->
+<div id="vMain" class="scr" style="display:none">
+  <div class="bar"><button class="back" onclick="vaoTab('home')" aria-label="Quay lại">&#8592;</button><span id="barT"></span></div>
+  <div class="pane" id="tCc">
       <div class="clock" id="dongHo">--:--:--</div>
       <div class="date" id="ngayHT"></div>
       <div class="note">Đồng hồ hiển thị theo thiết bị. Giờ chấm công chính thức do hệ thống ghi.</div>
@@ -89,46 +115,63 @@
       <button class="btn big" id="btnCham" onclick="cham()">...</button>
       <div id="hoi"></div><div id="ketQua"></div>
       <div class="hint">Khi chấm công, hãy bấm "Cho phép" nếu điện thoại hỏi quyền vị trí.</div>
-      <h2 style="margin-top:22px">Chấm công tháng này</h2><div id="lichSu"><div class="ph">Đang tải...</div></div>
-    </div>
-
-    <div id="tLuong" style="display:none"><h2>Phiếu lương</h2><div class="hint" style="margin:0 0 8px">Chỉ hiển thị các tháng bảng lương đã được duyệt.</div>
+      <button class="link" style="display:block;margin:16px auto 0" onclick="vaoTab('ls')">Xem lịch sử chấm công tháng này</button>
+  </div>
+  <div class="pane" id="tLs" style="display:none"><h2>Chấm công tháng này</h2><div id="lichSu"><div class="ph">Đang tải...</div></div></div>
+    <div class="pane" id="tLuong" style="display:none"><h2>Phiếu lương</h2><div class="hint" style="margin:0 0 8px">Chỉ hiển thị các tháng bảng lương đã được duyệt.</div>
       <div class="chips" id="dsThang"></div><div id="phieu"><div class="ph">Đang tải...</div></div></div>
 
-    <div id="tHoSo" style="display:none"><h2>Thông tin cá nhân</h2><div id="hoSo"><div class="ph">Đang tải...</div></div>
+    <div class="pane" id="tHoSo" style="display:none"><h2>Thông tin cá nhân</h2><div id="hoSo"><div class="ph">Đang tải...</div></div>
       <div class="hint" style="margin-top:10px">Cần chỉnh sửa thông tin? Gửi yêu cầu "Cập nhật thông tin cá nhân" ở mục Yêu cầu.</div></div>
 
-    <div id="tYc" style="display:none"><h2>Gửi yêu cầu</h2>
+    <div class="pane" id="tYc" style="display:none"><h2>Gửi yêu cầu</h2>
       <label style="margin-top:4px">Loại yêu cầu</label>
       <select id="ycLoai" onchange="veTruongYc()"><option value="NGHI_PHEP">Nghỉ phép</option><option value="SUA_CONG">Xin sửa công</option><option value="CAP_NHAT_TT">Cập nhật thông tin cá nhân</option><option value="HOI_LUONG">Hỏi / khiếu nại lương</option></select>
       <div id="ycTruong"></div>
       <label id="ycNdNhan">Nội dung</label><textarea id="ycNd" maxlength="250" placeholder="Nhập nội dung..."></textarea>
       <button class="btn" id="btnYc" onclick="guiYc()">GỬI YÊU CẦU</button>
-      <h2 style="margin-top:24px">Yêu cầu của tôi</h2><div id="dsYc"><div class="ph">Đang tải...</div></div></div>
+        </div>
+  <div class="pane" id="tYcDs" style="display:none"><button class="btn" style="margin-top:0" onclick="vaoTab('yc')">+ Gửi yêu cầu mới</button>
+      <h2 style="margin-top:20px">Yêu cầu của tôi</h2><div id="dsYc"><div class="ph">Đang tải...</div></div></div>
+</div>
+
+<!-- ===== TÀI KHOẢN (nhân viên và quản lý) ===== -->
+<div id="vTk" class="scr" style="display:none">
+  <div class="hero"><div><div class="hi">Tài khoản</div><div class="nm" id="tkNm"></div><div class="dv" id="tkDv"></div></div><div class="avt" id="tkAv"></div></div>
+  <div class="mods" style="padding:16px">
+    <button class="btn ghost" style="margin-top:0" onclick="moDoiMK()">Đổi mật khẩu</button>
+    <button class="btn" style="background:#C0392B" onclick="dangXuat()">Đăng xuất</button>
   </div>
-  <!-- ===== QUẢN LÝ ĐƠN VỊ ===== -->
-  <div id="vQl" style="display:none">
-    <div class="top"><span class="who" style="padding:6px 10px"><b id="qTen" style="font-size:15px"></b><span id="qDv" style="font-size:12px"></span></span>
-      <span style="text-align:right"><button class="link" onclick="moDoiMK()">Đổi mật khẩu</button><br><button class="link" onclick="dangXuat()">Đăng xuất</button></span></div>
-    <div id="qTong"><h2>Nhân sự đơn vị</h2><div id="qTomTat" class="hint" style="margin:0 0 8px"></div><input id="qLoc" placeholder="Tìm theo mã hoặc tên..." oninput="veQlNv()"><div id="qDsNv"><div class="ph">Đang tải...</div></div></div>
-    <div id="qDuyet" style="display:none"><h2>Chấm công chờ duyệt</h2><div class="hint" style="margin:0 0 6px">Chỉ những dòng hệ thống không tự duyệt được (ngoài khoảng cách, không có vị trí, máy lạ, thiếu giờ ra, ngày nghỉ...). Duyệt xong, hệ thống ghi vào bảng công trong ít phút.</div><div id="qDsCc"><div class="ph">Đang tải...</div></div></div>
-    <div id="qYc" style="display:none"><h2>Yêu cầu của nhân sự</h2><div id="qDsYc"><div class="ph">Đang tải...</div></div></div>
-  </div>
-  <div class="msg" id="msg"></div>
+</div>
+
+<!-- ===== QUẢN LÝ ĐƠN VỊ ===== -->
+<div id="vQlHome" class="scr" style="display:none">
+  <div class="hero"><div><div class="hi">Xin chào,</div><div class="nm" id="qTen"></div><div class="dv" id="qDv"></div></div><div class="avt" id="qAv"></div></div>
+  <div class="mods"><div class="grid">
+      <button class="mod" onclick="vaoQl('Tong')"><span class="ic" style="background:linear-gradient(135deg,#6366f1,#3730a3)"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c.5-3.5 3-5 6-5s5.5 1.5 6 5"/><circle cx="17" cy="9" r="2.3"/><path d="M16 14.3c2.6 0 4.4 1.2 5 4"/></svg></span>Nhân sự đơn vị</button>
+      <button class="mod" onclick="vaoQl('Duyet')"><span class="ic" style="background:linear-gradient(135deg,#14b8a6,#0f766e)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span>Chấm công chờ duyệt</button>
+      <button class="mod" onclick="vaoQl('Yc')"><span class="ic" style="background:linear-gradient(135deg,#f472b6,#db2777)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg></span>Yêu cầu của nhân sự</button>
+  </div></div>
+</div>
+<div id="vQl" class="scr" style="display:none">
+  <div class="bar"><button class="back" onclick="vaoQlHome()" aria-label="Quay lại">&#8592;</button><span id="qBarT"></span></div>
+    <div class="pane" id="qTong"><h2>Nhân sự đơn vị</h2><div id="qTomTat" class="hint" style="margin:0 0 8px"></div><input id="qLoc" placeholder="Tìm theo mã hoặc tên..." oninput="veQlNv()"><div id="qDsNv"><div class="ph">Đang tải...</div></div></div>
+    <div class="pane" id="qDuyet" style="display:none"><h2>Chấm công chờ duyệt</h2><div class="hint" style="margin:0 0 6px">Chỉ những dòng hệ thống không tự duyệt được (ngoài khoảng cách, không có vị trí, máy lạ, thiếu giờ ra, ngày nghỉ...). Duyệt xong, hệ thống ghi vào bảng công trong ít phút.</div><div id="qDsCc"><div class="ph">Đang tải...</div></div></div>
+    <div class="pane" id="qYc" style="display:none"><h2>Yêu cầu của nhân sự</h2><div id="qDsYc"><div class="ph">Đang tải...</div></div></div>
 </div>
 
 <div class="nav" id="nav"><div class="in">
-  <button id="nCc" onclick="vaoTab('cc')"><b>⏱</b>Chấm công</button><button id="nLuong" onclick="vaoTab('luong')"><b>💰</b>Lương</button>
-  <button id="nHoSo" onclick="vaoTab('hoso')"><b>👤</b>Hồ sơ</button><button id="nYc" onclick="vaoTab('yc')"><b>✉</b>Yêu cầu</button></div></div>
-
+  <button id="nHome" onclick="vaoTab('home')"><b>&#127968;</b>Trang chủ</button><button id="nYc" onclick="vaoTab('ycds')"><b>&#9993;</b>Yêu cầu</button><button id="nTk" onclick="vaoTab('tk')"><b>&#128100;</b>Tài khoản</button></div></div>
 <div class="nav" id="navQl"><div class="in">
-  <button id="qnTong" onclick="vaoQl('Tong')"><b>👥</b>Nhân sự</button><button id="qnDuyet" onclick="vaoQl('Duyet')"><b>✔</b>Chấm công</button><button id="qnYc" onclick="vaoQl('Yc')"><b>✉</b>Yêu cầu</button></div></div>
+  <button id="qnHome" onclick="vaoQlHome()"><b>&#127968;</b>Trang chủ</button><button id="qnTk" onclick="vaoQlTk()"><b>&#128100;</b>Tài khoản</button></div></div>
+<div class="msg" id="msg"></div>
 
 <script>
-  var TOKEN = '', QL = null, QV = {}, INFO = null, DEVICE = '', busy = false, TAB = 'cc', YC_TOKEN = '', DA = {};
+  var TOKEN = '', QL = null, QV = {}, INFO = null, DEVICE = '', busy = false, TAB = 'home', YC_TOKEN = '', DA = {};
   function $(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[c]; }); }
-  function msg(t, c) { var m = $('msg'); m.style.color = c || '#B00020'; m.textContent = t || ''; }
+  var MSG_T = 0;
+  function msg(t, c) { var m = $('msg'); m.style.color = c || '#B00020'; m.textContent = t || ''; clearTimeout(MSG_T); if (t) MSG_T = setTimeout(function () { m.textContent = ''; }, 8000); }
   // Khi trang chạy trong Apps Script thì dùng google.script.run; khi host ngoài (GitHub Pages) thì gọi API_URL bằng fetch.
   var API_URL = 'https://script.google.com/macros/s/THAY_BANG_LINK_EXEC/exec';   // <-- bản host ngoài: dán link /exec của Web App vào đây, ví dụ 'https://script.google.com/macros/s/AKfy.../exec'
   function call(fn, args) {
@@ -182,19 +225,19 @@
   function dangXuat() {
     if (TOKEN) call('dangXuat', [TOKEN]).catch(function () { }); TOKEN = ''; luuPhien(''); INFO = null; DA = {};
     try { sessionStorage.removeItem('cc_role'); } catch (e) { } QL = null;
-    ['vMain', 'vMK', 'nav', 'vQl', 'navQl'].forEach(function (i) { $(i).style.display = 'none'; }); $('vLogin').style.display = ''; $('ketQua').innerHTML = ''; msg('');
+    anTatCa(); $('vLogin').style.display = ''; $('ketQua').innerHTML = ''; msg('');
   }
   function vaoPhien(info) {
-    INFO = info; $('vLogin').style.display = 'none'; $('tenNV').textContent = info.hoTen; $('dvNV').textContent = info.maGV + ' · ' + info.donVi;
+    INFO = info; anTatCa(); $('hNm').textContent = info.hoTen; $('hDv').textContent = info.maGV + ' · ' + info.donVi; $('hAv').textContent = chuCai(info.hoTen);
     if (info.canDoiMK) { moDoiMK(true); return; }
-    $('vMK').style.display = 'none'; $('vMain').style.display = ''; $('nav').style.display = 'block'; hienMain(info); vaoTab(TAB);
+    hienMain(info); vaoTab(TAB);
   }
   // ---- đổi mật khẩu
   function moDoiMK(batBuoc) {
-    $('vMain').style.display = 'none'; $('nav').style.display = 'none'; $('vMK').style.display = '';
+    anTatCa(); $('vMK').style.display = '';
     $('mkTieuDe').textContent = batBuoc ? 'ĐẶT MẬT KHẨU MỚI' : 'ĐỔI MẬT KHẨU';
     $('mkGhiChu').textContent = batBuoc ? 'Đây là lần đăng nhập đầu tiên. Vui lòng đặt mật khẩu riêng (8 đến 32 ký tự).' : 'Mật khẩu mới dài từ 8 đến 32 ký tự.';
-    $('btnMKHuy').style.display = batBuoc ? 'none' : ''; $('btnMKHuy').onclick = function () { if (QL) vaoQl0(QL); else vaoTab('cc'); }; $('vQl').style.display = 'none'; $('navQl').style.display = 'none'; $('mkCu').value = DA.cu || ''; $('mkMoi').value = ''; $('mkMoi2').value = ''; msg('');
+    $('btnMKHuy').style.display = batBuoc ? 'none' : ''; $('btnMKHuy').onclick = function () { if (QL) vaoQlHome(); else vaoTab('tk'); }; $('vQl').style.display = 'none'; $('navQl').style.display = 'none'; $('mkCu').value = DA.cu || ''; $('mkMoi').value = ''; $('mkMoi2').value = ''; msg('');
   }
   function doiMK() {
     if (busy) return; var cu = $('mkCu').value, m1 = $('mkMoi').value, m2 = $('mkMoi2').value;
@@ -205,18 +248,27 @@
       busy = false; $('btnMK').disabled = false;
       if (r && r.heHan) { dangXuat(); msg(r.message); return; }
       if (!r || !r.ok) { msg((r && r.message) || 'Không đổi được mật khẩu.'); return; }
-      DA.cu = ''; msg('Đã đổi mật khẩu.', '#188918'); $('vMK').style.display = 'none';
-      if (QL) { QL.canDoiMK = false; vaoQl0(QL); return; }
-      INFO.canDoiMK = false; $('vMain').style.display = ''; $('nav').style.display = 'block'; hienMain(INFO); vaoTab('cc');
+      DA.cu = '';
+      if (QL) { QL.canDoiMK = false; vaoQl0(QL); msg('Đã đổi mật khẩu.', '#188918'); return; }
+      INFO.canDoiMK = false; hienMain(INFO); vaoTab('home'); msg('Đã đổi mật khẩu.', '#188918');
     }).catch(function () { busy = false; $('btnMK').disabled = false; msg('Lỗi kết nối, vui lòng thử lại.'); });
   }
   // ---- tab
+  var VIEWS = ['vLogin', 'vMK', 'vHome', 'vMain', 'vTk', 'vQlHome', 'vQl', 'nav', 'navQl'];
+  function anTatCa() { VIEWS.forEach(function (i) { $(i).style.display = 'none'; }); }
+  function chuCai(n) { var p = String(n || '').trim().split(/\s+/); return (p[p.length - 1] || '?').charAt(0).toUpperCase(); }
+  function danhDauNav(nav, id) { Array.prototype.forEach.call($(nav).getElementsByTagName('button'), function (b) { b.className = b.id === id ? 'on' : ''; }); }
+  var TAB_TEN = { cc: ['Cc', 'Chấm công'], ls: ['Ls', 'Lịch sử chấm công'], luong: ['Luong', 'Phiếu lương'], hoso: ['HoSo', 'Thông tin cá nhân'], yc: ['Yc', 'Gửi yêu cầu'], ycds: ['YcDs', 'Yêu cầu của tôi'] };
   function vaoTab(t) {
-    TAB = t; $('vMK').style.display = 'none'; $('vMain').style.display = ''; $('nav').style.display = 'block';
-    ['Cc', 'Luong', 'HoSo', 'Yc'].forEach(function (k) { $('t' + k).style.display = 'none'; $('n' + k).className = ''; });
-    var id = { cc: 'Cc', luong: 'Luong', hoso: 'HoSo', yc: 'Yc' }[t]; $('t' + id).style.display = ''; $('n' + id).className = 'on'; msg('');
-    if (t === 'cc') taiLichSu(); else if (t === 'luong') taiThangLuong(); else if (t === 'hoso') taiHoSo(); else { YC_TOKEN = rnd(12); veTruongYc(); taiYc(); }
+    TAB = t; anTatCa(); msg(''); $('nav').style.display = 'block'; window.scrollTo(0, 0);
+    if (t === 'home') { $('vHome').style.display = ''; danhDauNav('nav', 'nHome'); return; }
+    if (t === 'tk') { veTk(INFO ? INFO.hoTen : '', INFO ? INFO.maGV + ' · ' + INFO.donVi : ''); $('vTk').style.display = ''; danhDauNav('nav', 'nTk'); return; }
+    var m = TAB_TEN[t] || TAB_TEN.cc;
+    $('vMain').style.display = ''; ['Cc', 'Ls', 'Luong', 'HoSo', 'Yc', 'YcDs'].forEach(function (k) { $('t' + k).style.display = k === m[0] ? '' : 'none'; });
+    $('barT').textContent = m[1]; danhDauNav('nav', (t === 'yc' || t === 'ycds') ? 'nYc' : '');
+    if (t === 'ls') taiLichSu(); else if (t === 'luong') taiThangLuong(); else if (t === 'hoso') taiHoSo(); else if (t === 'yc') { YC_TOKEN = rnd(12); veTruongYc(); } else if (t === 'ycds') taiYc();
   }
+  function veTk(ten, dv) { $('tkNm').textContent = ten; $('tkDv').textContent = dv; $('tkAv').textContent = chuCai(ten); }
   // ---- chấm công
   function hienMain(info) {
     INFO = info;
@@ -333,7 +385,7 @@
       busy = false; $('btnYc').disabled = false;
       if (heHan(r)) return;
       if (!r || !r.ok) { msg((r && r.message) || 'Không gửi được yêu cầu.'); return; }
-      msg(r.message, '#188918'); $('ycNd').value = ''; YC_TOKEN = rnd(12); veTruongYc(); taiYc();
+      $('ycNd').value = ''; vaoTab('ycds'); msg(r.message, '#188918');
     }).catch(function () { busy = false; $('btnYc').disabled = false; msg('Lỗi kết nối. Hãy xem mục "Yêu cầu của tôi" để biết đã gửi chưa, tránh gửi lặp.'); });
   }
   function taiYc() {
@@ -352,13 +404,17 @@
 
   // ================= QUẢN LÝ ĐƠN VỊ =================
   function vaoQl0(info) {
-    QL = info; INFO = null; $('vLogin').style.display = 'none'; $('vMain').style.display = 'none'; $('nav').style.display = 'none';
-    $('qTen').textContent = info.hoTen; $('qDv').textContent = 'Quản lý · ' + info.donVi;
+    QL = info; INFO = null; anTatCa();
+    $('qTen').textContent = info.hoTen; $('qDv').textContent = 'Quản lý · ' + info.donVi; $('qAv').textContent = chuCai(info.hoTen);
     if (info.canDoiMK) { moDoiMK(true); return; }
-    $('vMK').style.display = 'none'; $('vQl').style.display = ''; $('navQl').style.display = 'block'; vaoQl(QV.tab || 'Tong');
+    vaoQlHome();
   }
+  function vaoQlHome() { anTatCa(); msg(''); $('vQlHome').style.display = ''; $('navQl').style.display = 'block'; danhDauNav('navQl', 'qnHome'); window.scrollTo(0, 0); }
+  function vaoQlTk() { anTatCa(); msg(''); veTk(QL ? QL.hoTen : '', QL ? 'Quản lý · ' + QL.donVi : ''); $('vTk').style.display = ''; $('navQl').style.display = 'block'; danhDauNav('navQl', 'qnTk'); }
   function vaoQl(t) {
-    QV.tab = t; ['Tong', 'Duyet', 'Yc'].forEach(function (k) { $('q' + k).style.display = k === t ? '' : 'none'; $('qn' + k).className = k === t ? 'on' : ''; }); msg('');
+    QV.tab = t; anTatCa(); msg(''); $('vQl').style.display = ''; $('navQl').style.display = 'block'; danhDauNav('navQl', ''); window.scrollTo(0, 0);
+    ['Tong', 'Duyet', 'Yc'].forEach(function (k) { $('q' + k).style.display = k === t ? '' : 'none'; });
+    $('qBarT').textContent = { Tong: 'Nhân sự đơn vị', Duyet: 'Chấm công chờ duyệt', Yc: 'Yêu cầu của nhân sự' }[t];
     if (t === 'Tong') taiQlTong(); else if (t === 'Duyet') taiQlCc(); else taiQlYc();
   }
   function qlLoi(r, el) { if (heHan(r)) return true; if (!r || !r.ok) { $(el).innerHTML = '<div class="ph">' + esc((r && r.message) || 'Không tải được.') + '</div>'; return true; } return false; }
