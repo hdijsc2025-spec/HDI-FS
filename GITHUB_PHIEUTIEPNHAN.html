@@ -51,22 +51,8 @@
             overflow: hidden;
         }
 
-        /* Thanh tiêu đề (biểu mẫu công khai, không đăng nhập nên luôn hiện) */
-        .header-banner {
-            width: 100%;
-            background: #584A00;            /* màu chủ đạo của hệ thống */
-            border-bottom: 3px solid #E2B922;
-            color: #ffffff;
-            text-align: center;
-            padding: 12px 10px;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            flex-shrink: 0;
-        }
         /* Đã đăng nhập: ẩn tiêu đề, ứng dụng chiếm trọn màn hình */
-        .app-card.logged-in { padding-top: var(--sat); }
+        .app-card { padding-top: var(--sat); }
 
         /* Khung chứa iframe chiếm phần còn lại */
         .iframe-container {
@@ -111,18 +97,13 @@
                 padding-left: var(--sal);
                 padding-right: var(--sar);
             }
-            .header-banner {
-                font-size: 12px;
-                letter-spacing: 0.5px;
-                padding: calc(var(--sat) + 6px) 8px 6px;
-            }
             .iframe-container { padding-bottom: var(--sab); }
         }
 
         /* (Đã bỏ quy tắc tự ẩn tiêu đề khi màn hình thấp: bàn phím ảo thu chiều cao làm tiêu đề
            lúc ẩn lúc hiện khi gõ ở màn hình đăng nhập. Tiêu đề chỉ ẩn khi đã đăng nhập.) */
 
-        /* Chừa thanh tiêu đề + đáy an toàn khi tiêu đề đang hiện */
+        /* Chừa đáy an toàn */
         .app-card:not(.logged-in) .iframe-container { padding-bottom: var(--sab); }
     </style>
 </head>
@@ -130,11 +111,6 @@
 
     <!-- Khung bao -->
     <div class="app-card" id="appCard">
-        <!-- Tiêu đề hệ thống (ẩn sau khi đăng nhập) -->
-        <div class="header-banner" id="headerBanner">
-            HDI ENTERPRISE SYSTEM
-        </div>
-
         <!-- Khung chứa ứng dụng Web App -->
         <div class="iframe-container" id="app-wrapper">
             <div class="loading-box" id="loadingBox">
